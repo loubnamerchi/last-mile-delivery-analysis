@@ -44,6 +44,7 @@ last-mile-delivery-analysis/
 ├── README.md
 ├── .gitignore
 └── main.py
+```
 
 ## 📊 Project Status
 
