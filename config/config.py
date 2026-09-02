@@ -1,7 +1,3 @@
-"""
-Project-wide configuration: paths used across notebooks and src modules.
-Using a config file avoids hardcoded absolute paths scattered through the codebase.
-"""
 
 from pathlib import Path
 
