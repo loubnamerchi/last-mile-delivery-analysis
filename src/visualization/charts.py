@@ -43,6 +43,26 @@ def plot_segment_status(df: pd.DataFrame, segment_col: str, status_col: str = "d
     fig.tight_layout()
     return fig
 
+def plot_numeric_status(df: pd.DataFrame, numeric_col: str, status_col: str = "delivery_status") -> plt.Figure:
+    """Stacked bar chart of delivery status (%) by numerical value ranges."""
+    df = df.copy()
+    df["range"] = pd.cut(df[numeric_col], bins=5)
+
+    ct = pd.crosstab(df["range"], df[status_col], normalize="index").mul(100)
+
+    fig, ax = plt.subplots(figsize=(9, 5))
+    ct.plot(kind="bar", stacked=True, ax=ax, colormap="viridis")
+
+    ax.set_title(f"Delivery Status by {numeric_col.replace('_', ' ').title()} Range")
+    ax.set_xlabel(f"{numeric_col.replace('_', ' ').title()} Range")
+    ax.set_ylabel("Percentage of Deliveries (%)")
+
+    ax.legend(title="Status", bbox_to_anchor=(1.02, 1), loc="upper left")
+    plt.xticks(rotation=45, ha="right")
+    fig.tight_layout()
+
+    return fig
+
 
 def plot_distance_vs_metric(df: pd.DataFrame, metric_col: str, metric_label: str) -> plt.Figure:
     """Scatter plot of distance_km vs a numeric metric (e.g. delivery time or cost)."""
