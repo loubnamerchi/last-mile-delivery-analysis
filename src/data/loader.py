@@ -1,6 +1,3 @@
-"""
-Data loading utilities for the last-mile delivery analysis project.
-"""
 
 import pandas as pd
 from pathlib import Path
