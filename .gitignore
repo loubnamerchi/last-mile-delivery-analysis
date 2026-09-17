@@ -13,6 +13,10 @@ venv/
 .DS_Store
 Thumbs.db
 
+reports/business_understanding_requirements_last_mile_delivery.md
+reports/business_understanding_thinking_advice.md
+reports/Thought_Process_business_understanding.md
+
 # Environment / secrets
 .env
 

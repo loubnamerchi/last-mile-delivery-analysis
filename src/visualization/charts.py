@@ -100,12 +100,7 @@ def plot_correlation_heatmap(df: pd.DataFrame, numeric_cols: list) -> plt.Figure
 
 def plot_weather_mode_heatmap(df: pd.DataFrame, status_value: str = "failed",
                                status_col: str = "delivery_status") -> plt.Figure:
-    """
-    Heatmap of a chosen delivery_status outcome rate (%) across
-    delivery_mode (rows) x weather_condition (columns). Built to
-    visualize the interaction effect found in Business Analysis
-    (weather's damage concentrates in express mode).
-    """
+
     ct = pd.crosstab(
         [df["delivery_mode"]], [df["weather_condition"]],
         values=(df[status_col] == status_value), aggfunc="mean"
@@ -123,11 +118,7 @@ def plot_weather_mode_heatmap(df: pd.DataFrame, status_value: str = "failed",
 
 def plot_mode_reliability_comparison(df: pd.DataFrame,
                                       status_col: str = "delivery_status") -> plt.Figure:
-    """
-    Grouped bar chart comparing on-time (delivered), delayed, and failed
-    rates across delivery_mode, using a consistent traffic-light color
-    scheme (green/amber/red) for immediate readability.
-    """
+
     ct = pd.crosstab(df["delivery_mode"], df[status_col], normalize="index").mul(100)
     ct = ct[["delivered", "delayed", "failed"]]  # consistent column order
     order = ct["delivered"].sort_values(ascending=False).index
@@ -146,20 +137,7 @@ def plot_mode_reliability_comparison(df: pd.DataFrame,
 
 def plot_high_risk_segment_comparison(segment_dist: dict, baseline_dist: dict,
                                        segment_label: str = "High-Risk Segment") -> plt.Figure:
-    """
-    Side-by-side bar comparison of a specific segment's outcome
-    distribution vs. the overall baseline. Built for the
-    express + rainy/stormy high-risk segment identified in Business
-    Analysis, but works for any two comparable distributions.
 
-    Parameters
-    ----------
-    segment_dist : dict
-        e.g. {'delivered': 1.3, 'delayed': 79.0, 'failed': 19.8}
-    baseline_dist : dict
-        e.g. {'delivered': 73.3, 'delayed': 21.4, 'failed': 5.3}
-    segment_label : str
-    """
     statuses = ["delivered", "delayed", "failed"]
     seg_vals = [segment_dist.get(s, 0) for s in statuses]
     base_vals = [baseline_dist.get(s, 0) for s in statuses]
@@ -182,12 +160,7 @@ def plot_high_risk_segment_comparison(segment_dist: dict, baseline_dist: dict,
 
 def plotly_weather_mode_interactive(df: pd.DataFrame,
                                      status_col: str = "delivery_status") -> go.Figure:
-    """
-    Interactive Plotly grouped bar: delivered/delayed/failed rate (%)
-    by weather_condition, faceted by delivery_mode. Intended for use in
-    the Streamlit dashboard (Step 11) where hover interactivity adds
-    real value for a manager exploring the data live.
-    """
+
     ct = (
         pd.crosstab([df["delivery_mode"], df["weather_condition"]], df[status_col], normalize="index")
         .mul(100)
