@@ -1,22 +1,4 @@
-"""
-Streamlit dashboard for the Last-Mile Delivery Operations Analysis.
 
-Run from the project root with:
-    streamlit run dashboard/app.py
-
-Sections:
-- Executive Overview: headline KPIs
-- Operations: region / partner / vehicle / weather / mode breakdowns
-- Root Cause: the weather x delivery_mode interaction and high-risk segment
-- Customer: satisfaction and rating analysis
-
-Design note: region, delivery_partner, vehicle_type, and package_type
-were found NOT to be statistically significant drivers of delivery
-outcome (see notebooks/06_business_analysis.ipynb). They remain
-available here as filters for operational monitoring, but the dashboard
-does not claim these differences are meaningful -- only weather_condition
-and delivery_mode are flagged as confirmed drivers.
-"""
 
 import sys
 from pathlib import Path
@@ -47,7 +29,7 @@ st.set_page_config(
 
 @st.cache_data
 def load_data() -> pd.DataFrame:
-    """Load the final feature-engineered dataset produced in Step 8."""
+
     path = PROCESSED_DATA_DIR / "delivery_logistics_features.csv"
     if not path.exists():
         st.error(
